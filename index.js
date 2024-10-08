@@ -52,7 +52,39 @@ const el = document.createElement("dialog")
 el.onclick = () => {
   el.close();
 }
+const hk = document.createElement("dialog")
+hk.onclick = () => {
+  el.close();
+}
 el.id = "gabarito"
+const selectHomework = () => {
+  const cc = await getAllCategories();
+  for(let i = 0;i<cc.length;i++){
+    if(task != 0){
+      break;
+    }
+    const bb = await getAllTasks(cc[i]["id"])
+    for(let j = 0;j<bb.length; j++){
+      const il = document.createElement("h5");
+      il.innerHTM = bb[j]["title"]
+      el.appendChild(il)
+    }
+  }
+}
+const botoes = [
+  ["Selecionar Tarefa", () => {
+    selectHomework();
+  }],
+  ["Mostrar Tarefa", () => {
+    el.showModal()
+  }],
+]
+for(let i = 0; i < botoes.length; i++){
+  const btn = document.createElement("button")
+  btn.innerHTML = botoes[i][0];
+  btn.onclick = botoes[i][1];
+  hk.appendChild(btn)
+}
 document.body.appendChild(el)
 async function initPELADINHO(){
   if(prompt("Usar Gabarito Anterior(sim/nao)") == "sim"){
@@ -62,22 +94,6 @@ async function initPELADINHO(){
   const task_author = prompt("Professor: ")
   let task = 0;
   el.innerHTML = ""
-  const cc = await getAllCategories();
-  for(let i = 0;i<cc.length;i++){
-    if(task != 0){
-      break;
-    }
-    const bb = await getAllTasks(cc[i]["id"])
-    for(let j = 0;j<bb.length;j++){
-      if(bb[j]["author"] == task_author){
-        const yn = prompt(`${bb[j]["title"]}`)
-        if(yn == "sim"){
-          task = bb[j]
-          break;
-        }
-      }
-    }
-  }
   if(task == 0){
     initPELADINHO();
   }
