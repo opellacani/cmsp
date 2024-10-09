@@ -49,24 +49,21 @@ async function getAllCategories(){
   return a
 }
 const el = document.createElement("dialog")
+const hk = document.createElement("dialog")
+el.id = "gabarito"
 el.onclick = () => {
   el.close();
 }
-const hk = document.createElement("dialog")
 hk.onclick = () => {
   hk.close();
 }
-el.id = "gabarito"
 const selectHomework = () => {
   const cc = await getAllCategories();
   for(let i = 0;i<cc.length;i++){
-    if(task != 0){
-      break;
-    }
     const bb = await getAllTasks(cc[i]["id"])
     for(let j = 0;j<bb.length; j++){
       const il = document.createElement("h5");
-      il.innerHTM = bb[j]["title"]
+      il.innerHTML = bb[j]["title"]
       el.appendChild(il)
     }
   }
@@ -87,6 +84,7 @@ for(let i = 0; i < botoes.length; i++){
 }
 document.body.appendChild(el)
 document.body.appendChild(hk)
+hk.showModal()
 const genGabarito = (task) => {
   const task_i = await getTaskById(task["id"])
   const questions = getQuestions(task_i)
@@ -99,10 +97,3 @@ const genGabarito = (task) => {
     el.innerHTML += "</div>"
   }
 }
-const btn = document.createElement("button")
-btn.style["z-index"] = "999999999";
-btn.onclick = initPELADINHO;
-btn.innerHTML = "Gabarito";
-btn.style["background-color"] = "black";
-btn.style["position"] = "absolute";
-document.body.appendChild(btn)
