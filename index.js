@@ -54,7 +54,7 @@ el.onclick = () => {
 }
 const hk = document.createElement("dialog")
 hk.onclick = () => {
-  el.close();
+  hk.close();
 }
 el.id = "gabarito"
 const selectHomework = () => {
@@ -86,17 +86,8 @@ for(let i = 0; i < botoes.length; i++){
   hk.appendChild(btn)
 }
 document.body.appendChild(el)
-async function initPELADINHO(){
-  if(prompt("Usar Gabarito Anterior(sim/nao)") == "sim"){
-    el.showModal()
-    return
-  }
-  const task_author = prompt("Professor: ")
-  let task = 0;
-  el.innerHTML = ""
-  if(task == 0){
-    initPELADINHO();
-  }
+document.body.appendChild(hk)
+const genGabarito = (task) => {
   const task_i = await getTaskById(task["id"])
   const questions = getQuestions(task_i)
   for(let i = 0; i<questions.length; i++){
@@ -107,7 +98,6 @@ async function initPELADINHO(){
     el.innerHTML += str
     el.innerHTML += "</div>"
   }
-  el.showModal()
 }
 const btn = document.createElement("button")
 btn.style["z-index"] = "999999999";
