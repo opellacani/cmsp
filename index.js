@@ -95,6 +95,14 @@ async function genGabarito(){
   }
   GABARITO = 0
 }
+async function showGabarito(){
+  if( TASK != 0 ){
+    if(GABARITO == 1){
+      await genGabarito()
+    }
+    gabarito.showModal();
+  }
+}
 async function selectHomework(){
   const cc = await getAllCategories();
   el.innerHTML = ""
@@ -107,21 +115,13 @@ async function selectHomework(){
       il.onclick = () => {
         GABARITO = 1;
         TASK = bb[j];
-        await genGabarito();
+        showGabarito()
         el.close();
       }
       el.appendChild(il)
     }
   }
   el.showModal()
-}
-async function showGabarito(){
-  if( TASK != 0 ){
-    if(GABARITO == 1){
-      await genGabarito()
-    }
-    gabarito.showModal();
-  }
 }
 for(let i = 0; i < botoes.length; i++){
   const btn = document.createElement("button")
