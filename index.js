@@ -83,19 +83,23 @@ async function genGabarito(id){
     gabarito.innerHTML += "<div style=\"border: 2px solid black\">"
     gabarito.innerHTML += `<h3>Questão ${i+1}:</h3>`
     const response = await getCorrect(task_i, questions[i])
-    let str = response["comment"].replaceAll("correta", "<b>correta</b>").replaceAll("incorreta", "<b>incorreta</b>").replaceAll("(A)", "<b>(A)</b>").replaceAll("(B)", "<b>(B)</b>").replaceAll("(C)", "<b>(C)</b>")u.replaceAll("(D)", "<b>(D)</b>").replaceAll("(E)", "<b>(E)</b>")
+    let str = response["comment"].replaceAll("correta", "<b>correta</b>")
+    str = str.replaceAll("incorreta", "<b>incorreta</b>")
+    str = str.replaceAll("(A)", "<b>(A)</b>")
+    str = str.replaceAll("(B)", "<b>(B)</b>")
+    str = str.replaceAll("(C)", "<b>(C)</b>")
+    str = str.replaceAll("(D)", "<b>(D)</b>")
+    str = str.replaceAll("(E)", "<b>(E)</b>")
     gabarito.innerHTML += str
     gabarito.innerHTML += "</div>"
   }
   GABARITO = 0
 }
 async function showGabarito(){
-  if( TASK != 0 ){
-    if(GABARITO != 0){
-      await genGabarito(GABARITO-1)
-    }
-    gabarito.showModal();
+  if(GABARITO != 0){
+    await genGabarito(GABARITO-1)
   }
+  gabarito.showModal();
 }
 async function selectHomework(){
   const cc = await getAllCategories();
