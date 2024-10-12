@@ -66,28 +66,51 @@ el.onclick = () => {
 hk.onclick = () => {
   hk.close();
 }
-
+let TASK = 0;
 const botoes = [
   "Selecionar Tarefa",
   "Mostrar Gabarito",
 ]
+async function genGabarito(){
+  el.innerHTML = ""
+  const task_i = await getTaskById(TASK["id"])
+  const questions = getQuestions(task_i)
+  for(let i = 0; i<questions.length; i++){
+    el.innerHTML += "<div style=\"border: 2px solid black\">"
+    el.innerHTML += `<h3>Questão ${i+1}:</h3>`
+    const response = await getCorrect(task_i, questions[i])
+    let str = response["comment"].replaceAll("correta", "<b>correta</b>")
+    str = str.replaceAll("incorreta", "<b>incorreta</b>")
+    str = str.replaceAll("(A)", "<b>(A)</b>")
+    str = str.replaceAll("(B)", "<b>(B)</b>")
+    str = str.replaceAll("(C)", "<b>(C)</b>")
+    str = str.replaceAll("(D)", "<b>(D)</b>")
+    str = str.replaceAll("(E)", "<b>(E)</b>")
+    el.innerHTML += str
+    el.innerHTML += "</div>"
+  }
+  el.showModal()
+}
 async function selectHomework(){
-  let task = 0;
   const cc = await getAllCategories();
+  el.innerHTML = ""
   for(let i = 0;i<cc.length;i++){
-    if(task != 0){
-      break;
-    }
     const bb = await getAllTasks(cc[i]["id"])
     for(let j = 0;j<bb.length;j++){
-      el.innerHTML = `<h5>${bb[j]["title"]}</h5>`
+      const il = document.createElement("h5")
+      il.onclick = () => {
+        TASK = bb[j];
+        await genGabarito();
+      }
+      el.appendChild(il)
     }
   }
   el.showModal()
 }
-const genGabarito = () => {
-  el.innerHTML = "gabarito"
-  el.showModal()
+async function showGabarito(){
+  if( TASK != 0 ){
+    el.showModal();
+  }
 }
 for(let i = 0; i < botoes.length; i++){
   const btn = document.createElement("button")
@@ -97,7 +120,7 @@ for(let i = 0; i < botoes.length; i++){
       btn.onclick = selectHomework;
       break;
     case 1:
-      btn.onclick = genGabarito;
+      btn.onclick = showGabarito;
       break;
   }
   btn.innerHTML = botoes[i];
