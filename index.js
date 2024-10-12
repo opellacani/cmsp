@@ -69,7 +69,6 @@ gabarito.onclick = () => {
 hk.onclick = () => {
   hk.close();
 }
-let GABARITO = 0;
 const tasks = []
 const botoes = [
   "Selecionar Tarefa",
@@ -95,10 +94,8 @@ async function genGabarito(id){
   }
   GABARITO = 0
 }
-async function showGabarito(){
-  if(GABARITO != 0){
-    await genGabarito(GABARITO-1)
-  }
+async function showGabarito(id){
+  await genGabarito(id)
   gabarito.showModal();
 }
 async function selectHomework(){
@@ -112,9 +109,8 @@ async function selectHomework(){
       il.style = "border: 1px solid blue;"
       tasks.push(bb[j])
       il.task = j
-      il.onclick = () => {
-        GABARITO = self.task;
-        showGabarito()
+      il.onclick = () =>
+        showGabarito(this.task)
         el.close();
       }
       el.appendChild(il)
