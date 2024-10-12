@@ -70,14 +70,14 @@ hk.onclick = () => {
   hk.close();
 }
 let GABARITO = 0;
-let TASK = 0;
+const tasks = []
 const botoes = [
   "Selecionar Tarefa",
   "Mostrar Gabarito",
 ]
-async function genGabarito(){
+async function genGabarito(id){
   gabarito.innerHTML = ""
-  const task_i = await getTaskById(TASK["id"])
+  const task_i = await getTaskById(tasks[id]["id"])
   const questions = getQuestions(task_i)
   for(let i = 0; i<questions.length; i++){
     gabarito.innerHTML += "<div style=\"border: 2px solid black\">"
@@ -91,8 +91,8 @@ async function genGabarito(){
 }
 async function showGabarito(){
   if( TASK != 0 ){
-    if(GABARITO == 1){
-      await genGabarito()
+    if(GABARITO != 0){
+      await genGabarito(GABARITO-1)
     }
     gabarito.showModal();
   }
@@ -108,8 +108,7 @@ async function selectHomework(){
       il.style = "border: 1px solid blue;"
       tasks.push(bb[j])
       il.onclick = () => {
-        GABARITO = 1;
-        TASK = tasks[i];
+        GABARITO = i;
         showGabarito()
         el.close();
       }
