@@ -80,7 +80,9 @@ el.onclick = () => {
 hk.onclick = () => {
   hk.close();
 }
-
+const selectHomework = () => {
+  alert("Selecione Homework")
+}
 const botoes = [
   "Selecionar Tarefa",
   "Mostrar Gabarito",
