@@ -66,6 +66,7 @@ el.onclick = () => {
 hk.onclick = () => {
   hk.close();
 }
+let GABARITO = 0;
 let TASK = 0;
 const botoes = [
   "Selecionar Tarefa",
