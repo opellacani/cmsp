@@ -111,8 +111,9 @@ async function selectHomework(){
       il.innerHTML = bb[j]["title"];
       il.style = "border: 1px solid blue;"
       tasks.push(bb[j])
+      il.task = j
       il.onclick = () => {
-        GABARITO = j;
+        GABARITO = self.task;
         showGabarito()
         el.close();
       }
