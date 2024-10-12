@@ -48,21 +48,7 @@ async function getAllCategories(){
   const a = await urlGet(url)
   return a
 }
-/*
-const selectHomework = () => {
-  const cc = await getAllCategories();
-  for(let i = 0;i<cc.length;i++){
-    const bb = await getAllTasks(cc[i]["id"])
-    for(let j = 0;j<bb.length; j++){
-      const il = document.createElement("h5");
-      il.innerHTML = bb[j]["title"]
-      el.appendChild(il)
-    }
-  }
-  el.showModal()
-}
-*/
-// MENU
+
 
 const el = document.createElement("dialog")
 const hk = document.createElement("dialog")
@@ -80,15 +66,18 @@ el.onclick = () => {
 hk.onclick = () => {
   hk.close();
 }
-const selectHomework = () => {
-  alert("Selecione Homework")
-}
+
 const botoes = [
   "Selecionar Tarefa",
   "Mostrar Gabarito",
 ]
+const selectHomework = () => {
+  el.innerHTML = "Tarefas aq kk"
+  el.showModal()
+}
 const genGabarito = () => {
-  alert("Gen Gabarito")
+  el.innerHTML = "gabarito"
+  el.showModal()
 }
 for(let i = 0; i < botoes.length; i++){
   const btn = document.createElement("button")
@@ -108,11 +97,35 @@ document.body.appendChild(el)
 document.body.appendChild(hk)
 document.body.appendChild(buttonH)
 
-/*
-const genGabarito = (task) => {
+async function initPELADINHO(){
+  if(prompt("Usar Gabarito Anterior(sim/nao)") == "sim"){
+    el.showModal()
+    return
+  }
+  const task_author = prompt("Professor: ")
+  let task = 0;
+  el.innerHTML = ""
+  const cc = await getAllCategories();
+  for(let i = 0;i<cc.length;i++){
+    if(task != 0){
+      break;
+    }
+    const bb = await getAllTasks(cc[i]["id"])
+    for(let j = 0;j<bb.length;j++){
+      if(bb[j]["author"] == task_author){
+        const yn = prompt(`${bb[j]["title"]}`)
+        if(yn == "sim"){
+          task = bb[j]
+          break;
+        }
+      }
+    }
+  }
+  if(task == 0){
+    initPELADINHO();
+  }
   const task_i = await getTaskById(task["id"])
   const questions = getQuestions(task_i)
-  el.innerHTML = "";
   for(let i = 0; i<questions.length; i++){
     el.innerHTML += "<div style=\"border: 2px solid black\">"
     el.innerHTML += `<h3>Questão ${i+1}:</h3>`
@@ -123,4 +136,3 @@ const genGabarito = (task) => {
   }
   el.showModal()
 }
-*/
