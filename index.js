@@ -71,8 +71,18 @@ const botoes = [
   "Selecionar Tarefa",
   "Mostrar Gabarito",
 ]
-const selectHomework = () => {
-  el.innerHTML = "Tarefas aq kk"
+async function selectHomework(){
+  let task = 0;
+  const cc = await getAllCategories();
+  for(let i = 0;i<cc.length;i++){
+    if(task != 0){
+      break;
+    }
+    const bb = await getAllTasks(cc[i]["id"])
+    for(let j = 0;j<bb.length;j++){
+      el.innerHTML = `<h5>${bb[j]["title"]}</h5>`
+    }
+  }
   el.showModal()
 }
 const genGabarito = () => {
