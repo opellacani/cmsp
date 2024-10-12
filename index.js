@@ -48,15 +48,7 @@ async function getAllCategories(){
   const a = await urlGet(url)
   return a
 }
-const el = document.createElement("dialog")
-const hk = document.createElement("dialog")
-el.id = "gabarito"
-el.onclick = () => {
-  el.close();
-}
-hk.onclick = () => {
-  hk.close();
-}
+
 const selectHomework = () => {
   const cc = await getAllCategories();
   for(let i = 0;i<cc.length;i++){
@@ -67,7 +59,54 @@ const selectHomework = () => {
       el.appendChild(il)
     }
   }
+  el.showModal()
 }
+
+// MENU
+
+const el = document.createElement("dialog")
+const hk = document.createElement("dialog")
+const buttonH = document.createElement("button")
+buttonH.style["z-index"] = "999999999";
+buttonH.onclick = () => hk.showModal();
+buttonH.innerHTML = "Gabarito";
+buttonH.style["background-color"] = "black";
+buttonH.style["position"] = "absolute";
+el.id = "gabarito"
+el.style = "border: none;"
+el.onclick = () => {
+  el.close();
+}
+hk.onclick = () => {
+  hk.close();
+}
+
+const botoes = [
+  "Selecionar Tarefa",
+  "Mostrar Gabarito",
+]
+const genGabarito = () => {
+  alert("Gen Gabarito")
+}
+for(let i = 0; i < botoes.length; i++){
+  const btn = document.createElement("button")
+  btn.style = "margin: 10px;"
+  switch(i){
+    case 0:
+      btn.onclick = selectHomework;
+      break;
+    case 1:
+      btn.onclick = genGabarito;
+      break;
+  }
+  btn.innerHTML = botoes[i];
+  hk.appendChild(btn)
+}
+document.body.appendChild(el)
+document.body.appendChild(hk)
+document.body.appendChild(buttonH)
+
+/*
 const genGabarito = (task) => {
   const task_i = await getTaskById(task["id"])
   const questions = getQuestions(task_i)
@@ -82,23 +121,4 @@ const genGabarito = (task) => {
   }
   el.showModal()
 }
-
-const botoes = [
-  "Selecionar Tarefa",
-  "Mostrar Tarefa",
-]
-for(let i = 0; i < botoes.length; i++){
-  const btn = document.createElement("button")
-  switch(i){
-    case 0:
-      btn.onclick = selectHomework;
-      break;
-    case 1:
-      btn.onclick = genGabarito;
-      break;
-  }
-  btn.innerHTML = botoes[i];
-}
-document.body.appendChild(el)
-document.body.appendChild(hk)
-hk.showModal()
+*/
