@@ -89,7 +89,6 @@ async function genGabarito(){
     el.innerHTML += str
     el.innerHTML += "</div>"
   }
-  el.showModal()
 }
 async function selectHomework(){
   const cc = await getAllCategories();
@@ -98,14 +97,14 @@ async function selectHomework(){
     const bb = await getAllTasks(cc[i]["id"])
     for(let j = 0;j<bb.length;j++){
       const il = document.createElement("h5")
+      il.innerHTML = bb[j]["title"];
+      il.style = "border: 1px solid blue;"
       il.onclick = () => {
         TASK = bb[j];
-        await genGabarito();
       }
       el.appendChild(il)
     }
   }
-  el.showModal()
 }
 async function showGabarito(){
   if( TASK != 0 ){
