@@ -58,6 +58,7 @@ buttonH.onclick = () => hk.showModal();
 buttonH.innerHTML = "Gabarito";
 buttonH.style["background-color"] = "black";
 buttonH.style["position"] = "absolute";
+buttonH.style["color"] = "white";
 el.id = "slctTarefa"
 el.style = "border: none;"
 el.onclick = () => {
@@ -83,12 +84,14 @@ async function genGabarito(id){
     gabarito.innerHTML += `<h3>Questão ${i+1}:</h3>`
     const response = await getCorrect(task_i, questions[i])
     let str = response["comment"].replaceAll("correta", "<b>correta</b>")
+    /*
     str = str.replaceAll("incorreta", "<b>incorreta</b>")
     str = str.replaceAll("(A)", "<b>(A)</b>")
     str = str.replaceAll("(B)", "<b>(B)</b>")
     str = str.replaceAll("(C)", "<b>(C)</b>")
     str = str.replaceAll("(D)", "<b>(D)</b>")
     str = str.replaceAll("(E)", "<b>(E)</b>")
+    */
     gabarito.innerHTML += str
     gabarito.innerHTML += "</div>"
   }
@@ -109,8 +112,8 @@ async function selectHomework(){
       il.style = "border: 1px solid blue;"
       tasks.push(bb[j])
       il.id = j
-      il.onclick = (this) => {
-        showGabarito(this.id)
+      il.onclick = async () => {
+        await showGabarito(this.id)
         el.close();
       }
       el.appendChild(il)
