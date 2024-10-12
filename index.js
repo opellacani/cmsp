@@ -48,7 +48,7 @@ async function getAllCategories(){
   const a = await urlGet(url)
   return a
 }
-
+/*
 const selectHomework = () => {
   const cc = await getAllCategories();
   for(let i = 0;i<cc.length;i++){
@@ -61,7 +61,7 @@ const selectHomework = () => {
   }
   el.showModal()
 }
-
+*/
 // MENU
 
 const el = document.createElement("dialog")
