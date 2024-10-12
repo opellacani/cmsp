@@ -112,7 +112,7 @@ async function selectHomework(){
       il.style = "border: 1px solid blue;"
       tasks.push(bb[j])
       il.onclick = () => {
-        GABARITO = i;
+        GABARITO = j;
         showGabarito()
         el.close();
       }
