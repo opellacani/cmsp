@@ -49,7 +49,7 @@ async function getAllCategories(){
   return a
 }
 
-
+const gabarito = document.createElement("dialog")
 const el = document.createElement("dialog")
 const hk = document.createElement("dialog")
 const buttonH = document.createElement("button")
@@ -58,7 +58,7 @@ buttonH.onclick = () => hk.showModal();
 buttonH.innerHTML = "Gabarito";
 buttonH.style["background-color"] = "black";
 buttonH.style["position"] = "absolute";
-el.id = "gabarito"
+el.id = "slctTarefa"
 el.style = "border: none;"
 el.onclick = () => {
   el.close();
@@ -72,11 +72,11 @@ const botoes = [
   "Mostrar Gabarito",
 ]
 async function genGabarito(){
-  el.innerHTML = ""
+  gabarito.innerHTML = ""
   const task_i = await getTaskById(TASK["id"])
   const questions = getQuestions(task_i)
   for(let i = 0; i<questions.length; i++){
-    el.innerHTML += "<div style=\"border: 2px solid black\">"
+    gabarito.innerHTML += "<div style=\"border: 2px solid black\">"
     el.innerHTML += `<h3>Questão ${i+1}:</h3>`
     const response = await getCorrect(task_i, questions[i])
     let str = response["comment"].replaceAll("correta", "<b>correta</b>")
@@ -86,8 +86,8 @@ async function genGabarito(){
     str = str.replaceAll("(C)", "<b>(C)</b>")
     str = str.replaceAll("(D)", "<b>(D)</b>")
     str = str.replaceAll("(E)", "<b>(E)</b>")
-    el.innerHTML += str
-    el.innerHTML += "</div>"
+    gabarito.innerHTML += str
+    gabarito.innerHTML += "</div>"
   }
 }
 async function selectHomework(){
@@ -100,15 +100,22 @@ async function selectHomework(){
       il.innerHTML = bb[j]["title"];
       il.style = "border: 1px solid blue;"
       il.onclick = () => {
+        GABARITO = 1;
         TASK = bb[j];
+        el.close();
       }
       el.appendChild(il)
     }
   }
+  el.showModal()
 }
 async function showGabarito(){
   if( TASK != 0 ){
-    el.showModal();
+    if(GABARITO == 1){
+      GABARITO = 0;
+      genGabarito();
+    }
+    gabarito.showModal();
   }
 }
 for(let i = 0; i < botoes.length; i++){
