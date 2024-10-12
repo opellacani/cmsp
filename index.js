@@ -104,7 +104,7 @@ async function selectHomework(){
   for(let i = 0;i<cc.length;i++){
     const bb = await getAllTasks(cc[i]["id"])
     for(let j = 0;j<bb.length;j++){
-      const il = document.createElement("h5")
+      const il = document.createElement("button")
       il.innerHTML = bb[j]["title"];
       il.style = "border: 1px solid blue;"
       tasks.push(bb[j])
