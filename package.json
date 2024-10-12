@@ -1,6 +1,6 @@
 {
   "name": "cmsp-peladinho",
-  "version": "0.1.8-test16a",
+  "version": "0.1.8-test16b",
   "main": "index.js",
   "type": "module",
   "scripts": {
