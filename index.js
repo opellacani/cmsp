@@ -78,7 +78,7 @@ async function genGabarito(){
   const questions = getQuestions(task_i)
   for(let i = 0; i<questions.length; i++){
     gabarito.innerHTML += "<div style=\"border: 2px solid black\">"
-    el.innerHTML += `<h3>Questão ${i+1}:</h3>`
+    gabarito.innerHTML += `<h3>Questão ${i+1}:</h3>`
     const response = await getCorrect(task_i, questions[i])
     let str = response["comment"].replaceAll("correta", "<b>correta</b>")
     str = str.replaceAll("incorreta", "<b>incorreta</b>")
@@ -114,7 +114,7 @@ async function showGabarito(){
   if( TASK != 0 ){
     if(GABARITO == 1){
       GABARITO = 0;
-      genGabarito();
+      await genGabarito();
     }
     gabarito.showModal();
   }
