@@ -133,6 +133,7 @@ for(let i = 0; i < botoes.length; i++){
   btn.innerHTML = botoes[i];
   hk.appendChild(btn)
 }
+document.body.appendChild(gabarito)
 document.body.appendChild(el)
 document.body.appendChild(hk)
 document.body.appendChild(buttonH)
