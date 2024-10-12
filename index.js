@@ -63,6 +63,9 @@ el.style = "border: none;"
 el.onclick = () => {
   el.close();
 }
+gabarito.onclick = () => {
+  gabarito.close();
+}
 hk.onclick = () => {
   hk.close();
 }
@@ -90,6 +93,7 @@ async function genGabarito(){
     gabarito.innerHTML += str
     gabarito.innerHTML += "</div>"
   }
+  GABARITO = 0
 }
 async function selectHomework(){
   const cc = await getAllCategories();
@@ -103,6 +107,7 @@ async function selectHomework(){
       il.onclick = () => {
         GABARITO = 1;
         TASK = bb[j];
+        await genGabarito();
         el.close();
       }
       el.appendChild(il)
@@ -113,8 +118,7 @@ async function selectHomework(){
 async function showGabarito(){
   if( TASK != 0 ){
     if(GABARITO == 1){
-      GABARITO = 0;
-      await genGabarito();
+      await genGabarito()
     }
     gabarito.showModal();
   }
