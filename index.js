@@ -68,26 +68,10 @@ const selectHomework = () => {
     }
   }
 }
-const botoes = [
-  ["Selecionar Tarefa", () => {
-    selectHomework();
-  }],
-  ["Mostrar Tarefa", () => {
-    el.showModal()
-  }],
-]
-for(let i = 0; i < botoes.length; i++){
-  const btn = document.createElement("button")
-  btn.innerHTML = botoes[i][0];
-  btn.onclick = botoes[i][1];
-  hk.appendChild(btn)
-}
-document.body.appendChild(el)
-document.body.appendChild(hk)
-hk.showModal()
 const genGabarito = (task) => {
   const task_i = await getTaskById(task["id"])
   const questions = getQuestions(task_i)
+  el.innerHTML = "";
   for(let i = 0; i<questions.length; i++){
     el.innerHTML += "<div style=\"border: 2px solid black\">"
     el.innerHTML += `<h3>Questão ${i+1}:</h3>`
@@ -96,4 +80,25 @@ const genGabarito = (task) => {
     el.innerHTML += str
     el.innerHTML += "</div>"
   }
+  el.showModal()
 }
+
+const botoes = [
+  "Selecionar Tarefa",
+  "Mostrar Tarefa",
+]
+for(let i = 0; i < botoes.length; i++){
+  const btn = document.createElement("button")
+  switch(i){
+    case 0:
+      btn.onclick = selectHomework;
+      break;
+    case 1:
+      btn.onclick = genGabarito;
+      break;
+  }
+  btn.innerHTML = botoes[i];
+}
+document.body.appendChild(el)
+document.body.appendChild(hk)
+hk.showModal()
