@@ -83,13 +83,7 @@ async function genGabarito(){
     gabarito.innerHTML += "<div style=\"border: 2px solid black\">"
     gabarito.innerHTML += `<h3>Questão ${i+1}:</h3>`
     const response = await getCorrect(task_i, questions[i])
-    let str = response["comment"].replaceAll("correta", "<b>correta</b>")
-    str = str.replaceAll("incorreta", "<b>incorreta</b>")
-    str = str.replaceAll("(A)", "<b>(A)</b>")
-    str = str.replaceAll("(B)", "<b>(B)</b>")
-    str = str.replaceAll("(C)", "<b>(C)</b>")
-    str = str.replaceAll("(D)", "<b>(D)</b>")
-    str = str.replaceAll("(E)", "<b>(E)</b>")
+    let str = response["comment"].replaceAll("correta", "<b>correta</b>").replaceAll("incorreta", "<b>incorreta</b>").replaceAll("(A)", "<b>(A)</b>").replaceAll("(B)", "<b>(B)</b>").replaceAll("(C)", "<b>(C)</b>")u.replaceAll("(D)", "<b>(D)</b>").replaceAll("(E)", "<b>(E)</b>")
     gabarito.innerHTML += str
     gabarito.innerHTML += "</div>"
   }
@@ -112,9 +106,10 @@ async function selectHomework(){
       const il = document.createElement("h5")
       il.innerHTML = bb[j]["title"];
       il.style = "border: 1px solid blue;"
+      tasks.push(bb[j])
       il.onclick = () => {
         GABARITO = 1;
-        TASK = bb[j];
+        TASK = tasks[i];
         showGabarito()
         el.close();
       }
